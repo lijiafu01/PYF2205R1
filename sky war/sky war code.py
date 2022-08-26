@@ -25,37 +25,37 @@ pygame.display.set_caption("sky war")
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock()
 # tải hình ảnh lên
-red_bg = pygame.image.load(os.path.join('img','bg3.png')).convert()
+red_bg = pygame.image.load(os.path.join('image','bg3.png')).convert()
 red_bg = pygame.transform.scale(red_bg,(500,600))
-white_bg = pygame.image.load(os.path.join('img','background2.png')).convert()
+white_bg = pygame.image.load(os.path.join('image','background2.png')).convert()
 white_bg = pygame.transform.scale(white_bg,(500,600))
-background_img = pygame.image.load(os.path.join('img','bg1.jpg')).convert()
+background_img = pygame.image.load(os.path.join('image','bg1.jpg')).convert()
 background_img = pygame.transform.scale(background_img,(500,600))
 
-player_img = pygame.image.load(os.path.join('img','p0.png')).convert()
+player_img = pygame.image.load(os.path.join('image','p0.png')).convert()
 player_img =  pygame.transform.scale(player_img,(50,38))
 player_img_sm =  pygame.transform.scale(player_img,(25,19))
 player_img.set_colorkey(BLACK)
 player_img_sm.set_colorkey(BLACK)
 
-airplane_img = pygame.image.load(os.path.join('img','p3.png')).convert()
+airplane_img = pygame.image.load(os.path.join('image','p3.png')).convert()
 airplane_img.set_colorkey(BLACK)
 airplane_img =  pygame.transform.scale(airplane_img,(50,38))
 
 
-bullet_img = pygame.image.load(os.path.join('img','gair.png')).convert()
+bullet_img = pygame.image.load(os.path.join('image','gair.png')).convert()
 bullet_img =  pygame.transform.scale(bullet_img,(20,50))
 bullet_img.set_colorkey(BLACK)
 
-boss_img = pygame.image.load(os.path.join('img','boss.png')).convert()
+boss_img = pygame.image.load(os.path.join('image','boss.png')).convert()
 boss_img =  pygame.transform.scale(boss_img,(200,195))
 boss_img.set_colorkey(BLACK)
 
-rocket_img = pygame.image.load(os.path.join('img','rocket.png')).convert()
+rocket_img = pygame.image.load(os.path.join('image','rocket.png')).convert()
 rocket_img.set_colorkey(BLACK)
 rocket_img =  pygame.transform.scale(rocket_img,(80,60))
 
-warning_img = pygame.image.load(os.path.join('img','warning.png')).convert()
+warning_img = pygame.image.load(os.path.join('image','warning.png')).convert()
 warning_img.set_colorkey(BLACK)
 warning_img =  pygame.transform.scale(warning_img,(100,100))
 
@@ -63,13 +63,13 @@ warning_img =  pygame.transform.scale(warning_img,(100,100))
 
 # hình ảnh animation
 item_imgs = {}
-item_imgs['gun'] = pygame.image.load(os.path.join('img','gun.png')).convert()
+item_imgs['gun'] = pygame.image.load(os.path.join('image','gun.png')).convert()
 item_imgs['gun'] =  pygame.transform.scale(item_imgs['gun'],(10,20))
-item_imgs['lives'] = pygame.image.load(os.path.join('img','lives.png')).convert()
+item_imgs['lives'] = pygame.image.load(os.path.join('image','lives.png')).convert()
 item_imgs['lives'] =  pygame.transform.scale(item_imgs['lives'],(25,22))
 item_imgs['lives'].set_colorkey(BLACK)
 
-gun_air_img = pygame.image.load(os.path.join('img','bullet.png')).convert()
+gun_air_img = pygame.image.load(os.path.join('image','bullet.png')).convert()
 gun_air_img =  pygame.transform.scale(gun_air_img ,(6,20))
 gun_air_img.set_colorkey(BLACK)
 
@@ -80,11 +80,11 @@ anim_imgs['collide'] = []
 anim_imgs['fire'] = []
 for i in range(9):
     if i < 3:
-        anim_imgs['fire'].append(pygame.image.load(os.path.join('img',f'fire{i}.png')).convert())
+        anim_imgs['fire'].append(pygame.image.load(os.path.join('image',f'fire{i}.png')).convert())
         anim_imgs['fire'][i].set_colorkey(BLACK)
-    anim_imgs['kill'].append(pygame.image.load(os.path.join('img',f'player_expl{i}.png')).convert())
+    anim_imgs['kill'].append(pygame.image.load(os.path.join('image',f'player_expl{i}.png')).convert())
     anim_imgs['kill'][i].set_colorkey(BLACK)
-    anim_imgs['nuc'].append(pygame.image.load(os.path.join('img',f'e{i}.png')).convert())
+    anim_imgs['nuc'].append(pygame.image.load(os.path.join('image',f'e{i}.png')).convert())
     anim_imgs['nuc'][i].set_colorkey(BLACK)
 
 
@@ -128,7 +128,17 @@ def start():
                 pygame.quit()
             elif event.type == pygame.KEYUP:
                 start_key = False
-
+def warning_boss(light_bg):
+    if 0<light_bg<=15 :
+        screen.blit(background_img,(0,0))
+        screen.blit(warning_img,(200,250))
+    if 15<light_bg<=25:
+        screen.blit(white_bg,(0,0))
+        screen.blit(warning_img,(200,250))
+    if 25 < light_bg <=30:
+        screen.blit(red_bg,(0,0))
+        screen.blit(warning_img,(200,250))
+        
 
 
     
@@ -390,22 +400,29 @@ for i in range(12):
 
 #main loop
 while running:
+    clock.tick(FPS)
     if start_key:
         start()
         start_key = False
-    clock.tick(FPS)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.K_q:
             FPS = 0
         if event.type == pygame.K_e:
-            FPS = 60
+            FPS = 0
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_q:
+                FPS = 1
+            if event.key == pygame.K_e:
+                FPS = 60
+                    
+
 
 
 
 #xử lý va chạm
-    if score > 10000 and boss_key:
+    if score >= 5000 and boss_key:
         pl_gun = player.gun
         pl_lives = player.lives
         pygame.sprite.Group.empty(all_sprites)
@@ -426,7 +443,7 @@ while running:
                 running = False
         hits = pygame.sprite.spritecollide(b,player_bullets,True)
         for i in hits:
-            b.hp -= 4
+            b.hp -= 2
             if b.hp < 0:
                 score += 3000
                 boss_key = False
@@ -436,7 +453,7 @@ while running:
         for i in hits:
             k = Expl_anim(i.rect.center,'kill')
             all_sprites.add(k)
-            if random.random() > 0.7:
+            if random.random() > 0.8:
                 item = Item(i.rect.center)
                 all_sprites.add(item)
                 items.add(item)
@@ -481,22 +498,15 @@ while running:
         auto_shoot = 0
     if score >= 5000 and bg_key:
         light_bg += 1
-        if 0<light_bg<=10 :
-            screen.blit(background_img,(0,0))
-            screen.blit(warning_img,(200,250))
-        if 10<light_bg<=20:
-            screen.blit(white_bg,(0,0))
-            screen.blit(warning_img,(200,250))
-        if 20 < light_bg <=30:
-            screen.blit(red_bg,(0,0))
-            screen.blit(warning_img,(200,250))
-            light_bg =0
-            bg_time_warning += 1
-            if bg_time_warning == 6:
-                bg_key = False
-        
+        warning_boss(light_bg)
+        if light_bg == 30:
+            light_bg = 0
+        bg_time_warning += 1
+        if bg_time_warning == 180:
+            bg_key = False
     else:
         screen.blit(background_img,(0,0))
+
     # hiển thị
     text_draw(screen,str(int(score)),18,245,10,WHITE)
     lives_draw(screen,player.lives,player_img_sm)
