@@ -1,0 +1,5 @@
+1,game được tạo ra bằng thư viện pygame trên visual studio code
+2,vào game ấn phím bất kỳ để chơi
+3,dùng phím a để di chuyển qua trái,phím d di chuyển qua phải.
+4,game chưa được hoàn thành nên có thể phát sinh một số lỗi!
+thanks!
