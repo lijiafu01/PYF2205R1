@@ -1,0 +1,197 @@
+package t01;
+
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Scanner;
+import javax.swing.*;
+import java.io.*;
+import java.io.File;
+
+class MyJFrame extends JFrame implements ActionListener
+{
+	Scanner sc = new Scanner(System.in);
+	
+	
+	private JPanel contentPane;
+	private JTextField TF_user,TF_passWord;
+	private JLabel Lb_user,Lb_passWord;
+	JButton btn1 = new JButton("登入");
+	JButton btn2 = new JButton("建立新帳號");
+	
+	
+	
+	MyJFrame()
+	{
+
+
+		setBounds(450,250,600,400);
+		setTitle("JFrame 視窗"); 
+		contentPane = new JPanel();
+		
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		//button
+		btn1.setForeground(Color.blue);
+		btn1.setFont(new Font("", Font.PLAIN, 25));
+		btn1.addActionListener(this);
+		btn1.setBounds(240,150,120,40);
+		contentPane.add(btn1); 
+		
+		btn2.setForeground(Color.red);
+		btn2.addActionListener(this);
+		btn2.setBounds(450,300,100,25);
+		contentPane.add(btn2); 
+		
+		/*
+		 * JButton btn2 = new JButton("註冊"); btn2.addActionListener(this);
+		 * btn2.setBounds(150,130,100,25); contentPane.add(btn2);
+		 */	
+		
+		//input
+		TF_user = new JTextField();
+		TF_user.setColumns(10);
+		/* TF_user.setText("哈哈"); */	
+		TF_user.setBounds(180,35,300,35);
+		TF_user.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(TF_user);
+		
+		TF_passWord = new JTextField();
+		TF_passWord.setBounds(180,80,300,35);
+		TF_passWord.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(TF_passWord);
+		
+		
+		//text ==> Label
+		Lb_user = new JLabel("帳號");
+		Lb_user.setFont(new Font("", Font.PLAIN, 30));
+		Lb_user.setBounds(80,35,170,35);
+		contentPane.add(Lb_user);
+		
+		Lb_passWord = new JLabel("密碼");
+		Lb_passWord.setBounds(80,80,170,35);
+		Lb_passWord.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(Lb_passWord);
+		
+		Lb_passWord = new JLabel("密碼");
+		Lb_passWord.setBounds(80,80,170,35);
+		Lb_passWord.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(Lb_passWord);
+		
+		
+		setVisible(true);
+		
+		
+		
+	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource() == btn1 )
+		{
+			
+			String check_user = TF_user.getText().toString();
+			String check_passWord = TF_passWord.getText().toString();
+			if(check_user.equals("B000000") && check_passWord.equals("000000"))
+			{
+
+				JOptionPane.showMessageDialog(null,"登入成功！");
+			}
+			else
+			{
+				
+				JOptionPane.showMessageDialog(null,"帳號或密碼錯誤！");
+
+			}
+			
+		}
+		if(e.getSource() == btn2 )
+		{
+			
+			Register  rg = new Register();
+		}	
+	}
+	
+
+	
+}
+
+//scene 2
+class Register extends JFrame
+{
+	Scanner sc = new Scanner(System.in);
+	private JPanel contentPane;
+	private JTextField TF_user,TF_passWord,TF_passWord2;
+	private JLabel Lb_user,Lb_passWord,Lb_passWord2;
+	JButton btn1 = new JButton("註冊");
+	Register()
+	{
+		setBounds(700,250,600,400);
+		setTitle("JFrame 視窗"); 
+		contentPane = new JPanel();
+		
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		
+		//button
+		btn1.setForeground(Color.green);
+		btn1.setFont(new Font("", Font.PLAIN, 25));
+		/* btn1.addActionListener(this); */
+		btn1.setBounds(240,200,120,40);
+		contentPane.add(btn1); 
+		
+		
+		
+		//text ==> Label
+		Lb_user = new JLabel("帳號");
+		Lb_user.setFont(new Font("", Font.PLAIN, 30));
+		Lb_user.setBounds(80,35,170,35);
+		contentPane.add(Lb_user);
+		
+		Lb_passWord = new JLabel("密碼");
+		Lb_passWord.setBounds(80,80,170,35);
+		Lb_passWord.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(Lb_passWord);
+		
+		Lb_passWord2 = new JLabel("確認密碼");
+		Lb_passWord2.setBounds(20,125,170,35);
+		Lb_passWord2.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(Lb_passWord2);
+		
+		//input
+		TF_user = new JTextField();
+		TF_user.setColumns(10);
+		/* TF_user.setText("哈哈"); */	
+		TF_user.setBounds(180,35,300,35);
+		TF_user.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(TF_user);
+		
+		TF_passWord = new JTextField();
+		TF_passWord.setBounds(180,80,300,35);
+		TF_passWord.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(TF_passWord);
+		
+		TF_passWord2 = new JTextField();
+		TF_passWord2.setBounds(180,125,300,35);
+		TF_passWord2.setFont(new Font("", Font.PLAIN, 30));
+		contentPane.add(TF_passWord2);
+		
+		
+		setVisible(true);
+				
+	}
+	
+}
+
+
+public class JFrameDemo {
+	public static void main(String[] args) 
+	{
+		MyJFrame f = new MyJFrame();
+		
+	
+
+	}
+
+}
